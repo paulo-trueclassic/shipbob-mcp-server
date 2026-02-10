@@ -1,9 +1,12 @@
 import axios from 'axios';
+import dotenv from "dotenv";
+dotenv.config();
 
     class ShipBobClient {
       constructor() {
-        this.baseUrl = 'https://api.shipbob.com/1.0';
+        this.baseUrl = 'https://api.shipbob.com/2025-07';
         this.apiKey = process.env.SHIPBOB_API_KEY;
+        if (!this.apiKey) throw new Error("SHIPBOB_API_KEY missing");
         this.client = axios.create({
           baseURL: this.baseUrl,
           headers: {
@@ -53,36 +56,36 @@ import axios from 'axios';
 
       // Products API
       async getProducts(params) {
-        return this.request('GET', '/products', null, params);
+        return this.request('GET', '/product', null, params);
       }
 
       async getProduct(id) {
-        return this.request('GET', `/products/${id}`);
+        return this.request('GET', `/product/${id}`);
       }
 
       async createProduct(productData) {
-        return this.request('POST', '/products', productData);
+        return this.request('POST', '/product', productData);
       }
 
       async updateProduct(id, productData) {
-        return this.request('PUT', `/products/${id}`, productData);
+        return this.request('PUT', `/product/${id}`, productData);
       }
 
       // Orders API
       async getOrders(params) {
-        return this.request('GET', '/orders', null, params);
+        return this.request('GET', '/order', null, params);
       }
 
       async getOrder(id) {
-        return this.request('GET', `/orders/${id}`);
+        return this.request('GET', `/order/${id}`);
       }
 
       async createOrder(orderData) {
-        return this.request('POST', '/orders', orderData);
+        return this.request('POST', '/order', orderData);
       }
 
       async cancelOrder(id, cancelData) {
-        return this.request('POST', `/orders/${id}/cancel`, cancelData);
+        return this.request('POST', `/order/${id}/cancel`, cancelData);
       }
 
       // Inventory API
@@ -91,72 +94,72 @@ import axios from 'axios';
       }
 
       async getInventoryByProduct(productId) {
-        return this.request('GET', `/inventory/products/${productId}`);
+        return this.request('GET', `/inventory-product/${productId}`);
       }
 
       async getInventoryLevels(params) {
-        return this.request('GET', '/inventory/levels', null, params);
+        return this.request('GET', '/inventory-level', null, params);
       }
 
       async adjustInventory(adjustmentData) {
-        return this.request('POST', '/inventory/adjustments', adjustmentData);
+        return this.request('POST', '/inventory-adjustment', adjustmentData);
       }
 
       // Fulfillment API
       async getShipments(params) {
-        return this.request('GET', '/shipments', null, params);
+        return this.request('GET', '/shipment', null, params);
       }
 
       async getShipment(id) {
-        return this.request('GET', `/shipments/${id}`);
+        return this.request('GET', `/shipment/${id}`);
       }
 
       async createShipment(shipmentData) {
-        return this.request('POST', '/shipments', shipmentData);
+        return this.request('POST', '/shipment', shipmentData);
       }
 
       // Webhooks API
       async getWebhooks() {
-        return this.request('GET', '/webhooks');
+        return this.request('GET', '/webhook');
       }
 
       async createWebhook(webhookData) {
-        return this.request('POST', '/webhooks', webhookData);
+        return this.request('POST', '/webhook', webhookData);
       }
 
       async deleteWebhook(id) {
-        return this.request('DELETE', `/webhooks/${id}`);
+        return this.request('DELETE', `/webhook/${id}`);
       }
 
       // Returns API
       async getReturns(params) {
-        return this.request('GET', '/returns', null, params);
+        return this.request('GET', '/return', null, params);
       }
 
       async getReturn(id) {
-        return this.request('GET', `/returns/${id}`);
+        return this.request('GET', `/return/${id}`);
       }
 
       async createReturn(returnData) {
-        return this.request('POST', '/returns', returnData);
+        return this.request('POST', '/return', returnData);
       }
 
       // Locations API
       async getFulfillmentCenters() {
-        return this.request('GET', '/fulfillment_centers');
+        return this.request('GET', '/fulfillment-center');
       }
 
       async getFulfillmentCenter(id) {
-        return this.request('GET', `/fulfillment_centers/${id}`);
+        return this.request('GET', `/fulfillment-center/${id}`);
       }
 
       // Channels API
       async getChannels() {
-        return this.request('GET', '/channels');
+        return this.request('GET', '/channel');
       }
 
       async getChannel(id) {
-        return this.request('GET', `/channels/${id}`);
+        return this.request('GET', `/channel/${id}`);
       }
 
       // Reporting API
